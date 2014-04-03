@@ -1,8 +1,16 @@
 /* global pillstreak */
 window.pillstreak = (function() {
+    var KEYS = {
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down',
+    };
     var exports = {
         init: function() {
+            this.game = document.querySelector('#game');
             this.cells = document.querySelectorAll(".cell");
+
             var row, col;
             for (var i=0; i<this.cells.length; i++) {
                 row = i % 4;
@@ -11,6 +19,11 @@ window.pillstreak = (function() {
                 this.cells[i].setAttribute('row', row);
                 this.cells[i].setAttribute('col', col);
             }
+
+            this.game.focus();
+            document.body.onkeyup = function(ev) {
+                pillstreak.shiftAllCells(KEYS[ev.keyCode]);
+            };
         },
         getFreeCell: function() {
             var free = [];
