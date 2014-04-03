@@ -1,1 +1,43 @@
 body{border:10px solid blue}body p{border:10px solid green}
+
+#game {
+    width: 320px;
+    height: 320px;
+    position: relative;
+}
+
+.cell {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.cell[type=pill] {
+    background: yellow;
+}
+
+.cell[type=infection] {
+    background: red;
+}
+
+.cell[row='1'] {
+    top: 80px;
+}
+.cell[row='2'] {
+    top: 160px;
+}
+.cell[row='3'] {
+    top: 240px;
+}
+
+.cell[col='1'] {
+    left: 80px;
+}
+.cell[col='2'] {
+    left: 160px;
+}
+.cell[col='3'] {
+    left: 240px;
+}
