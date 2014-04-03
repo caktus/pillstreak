@@ -20,9 +20,12 @@ window.pillstreak = (function() {
                 this.cells[i].setAttribute('col', col);
             }
 
+            pillstreak.populateRandom();
+
             this.game.focus();
             document.body.onkeyup = function(ev) {
                 pillstreak.shiftAllCells(KEYS[ev.keyCode]);
+                pillstreak.populateRandom();
             };
         },
         getFreeCell: function() {
@@ -40,6 +43,14 @@ window.pillstreak = (function() {
             var prop;
             for (prop in data) {
                 cell.setAttribute(prop, data[prop]);
+            }
+        },
+
+        populateRandom: function() {
+            var cell = this.getFreeCell();
+            if (cell) {
+                cell.setAttribute('type', Math.random()>0.5 ? 'pill' : 'infection');
+                cell.setAttribute('level', 1);
             }
         },
 
@@ -129,8 +140,10 @@ window.pillstreak = (function() {
             function shiftGroup(cell) {
                 if (cell.getAttribute('type') !== 'free') {
                     neighbor = pillstreak.getNeighbor(cell, direction);
-                    if (neighbor && neighbor.getAttribute('type') === 'free') {
-                        pillstreak.swapCells(cell, neighbor);
+                    if (neighbor) {
+                        if (neighbor.getAttribute('type') === 'free') {
+                            pillstreak.swapCells(cell, neighbor);
+                        }
                     }
                 }
             }
