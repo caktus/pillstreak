@@ -67,6 +67,11 @@ window.pillstreak = (function() {
             cells.forEach = Array.prototype.forEach;
             return cells;
         },
+        getColumn: function(col) {
+            var cells = document.querySelectorAll(".cell[col='"+col+"']");
+            cells.forEach = Array.prototype.forEach;
+            return cells;
+        },
 
         swapCells: function(cell, other) {
             var first_row = cell.getAttribute('row');
@@ -79,20 +84,47 @@ window.pillstreak = (function() {
             other.setAttribute('col', first_col);
         },
 
-        shiftUp: function() {
+        shiftAllCells: function(direction) {
             var neighbor;
+            var grouper, groups;
+            switch (direction) {
+                case 'up':
+                case 'down':
+                    grouper = this.getRow;
+                    break;
+                case 'left':
+                case 'right':
+                    grouper = this.getColumn;
+                    break;
+                default:
+                    break;
+            }
+
+            switch (direction) {
+                case 'up':
+                case 'left':
+                    groups = [3, 2, 1, 0];
+                    break;
+                case 'down':
+                case 'right':
+                    groups = [0, 1, 2, 3];
+                    break;
+                default:
+                    break;
+            }
             
-            function shiftRowUp(cell) {
+            function shiftGroup(cell) {
                 if (cell.getAttribute('type') !== 'free') {
-                    neighbor = pillstreak.getNeighbor(cell, 'up');
+                    neighbor = pillstreak.getNeighbor(cell, direction);
                     if (neighbor && neighbor.getAttribute('type') === 'free') {
                         pillstreak.swapCells(cell, neighbor);
                     }
                 }
             }
 
-            for (var i = 0; i < 4; i ++) {
-                this.getRow(i).forEach(shiftRowUp);
+            while (groups.length > 0) {
+                var i = groups.pop();
+                grouper(i).forEach(shiftGroup);
             }
         },
     };
