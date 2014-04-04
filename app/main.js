@@ -294,7 +294,8 @@ window.pillstreak = (function() {
             if (pill >= infection) {
                 other.setAttribute('type', 'free');
                 other.setAttribute('level', '');
-                this.addPoints(100 * infection);
+                this.movePoints += 100 * infection;
+                this.victories++;
             } else {
                 this.mergeCells(cell, other, direction);
                 this.loseHealth();
@@ -316,7 +317,8 @@ window.pillstreak = (function() {
                 return;
             }
             this.pendingShift = null;
-
+            this.victories = 0;
+            this.movePoints = 0;
 
             this.shifting = true;
             switch (direction) {
@@ -368,6 +370,13 @@ window.pillstreak = (function() {
             }
 
             function populateIfShifted() {
+                if (pillstreak.victories > 0) {
+                    if (pillstreak.victories > 1) {
+                        pillstreak.info("BONUS x" + pillstreak.victories + "!");
+                    }
+                    pillstreak.addPoints(pillstreak.movePoints * pillstreak.victories);
+                }
+
                 if (shifted) {
                     pillstreak.populateRandom();
                 }
