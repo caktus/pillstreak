@@ -22,6 +22,9 @@ window.pillstreak = (function() {
         "Avoid letting the infection spread.",
         "The stronger the infection...",
         "the better you'll have to be with your pills."
+        "Swipe or use arrow keys to move."
+        "Swipe or use arrow keys to move."
+        "Swipe or use arrow keys to move."
     ];
 
     var exports = {
