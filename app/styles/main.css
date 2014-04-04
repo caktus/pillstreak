@@ -44,7 +44,6 @@ h1 {
 }
 
 h2.score {
-    width: 40%;
     position: absolute;
     text-align: right;
     top: 5px;
@@ -55,7 +54,6 @@ h2.score img {
     margin: 0px 16px;
 }
 h2.health {
-    width: 40%;
     text-align: right;
     position: absolute;
     right: 0px;
