@@ -12,7 +12,7 @@ body {
 }
 body.anim-pulse {
     background-size: 110%;
-    background-position: -20px 0px;
+    background-position: -20px 80px;
     -webkit-transition: all 2s;
     -moz-transition: all 2s;
     transition: all 2s;
