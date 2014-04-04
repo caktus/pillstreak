@@ -18,6 +18,7 @@ window.pillstreak = (function() {
                 this.cells[i].setAttribute('type', 'free');
                 this.cells[i].setAttribute('row', row);
                 this.cells[i].setAttribute('col', col);
+                this.cells[i].setAttribute('level', '');
             }
 
             pillstreak.populateRandom();

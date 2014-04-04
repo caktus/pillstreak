@@ -12,6 +12,8 @@ body{border:10px solid blue}body p{border:10px solid green}
     position: absolute;
     top: 0px;
     left: 0px;
+    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transform: scale(1, 1);
 }
 .cell:after {
     content: attr(level);
@@ -20,6 +22,10 @@ body{border:10px solid blue}body p{border:10px solid green}
     position: absolute;
     font-family: sans-serif;
     font-size: 80px;
+}
+
+.cell[level=''] {
+    -webkit-transform: scale(0.01, 0.01);
 }
 
 .cell[type=pill] {
