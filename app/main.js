@@ -19,7 +19,6 @@ window.pillstreak = (function() {
                 this.cells[i].setAttribute('row', row);
                 this.cells[i].setAttribute('col', col);
                 this.cells[i].setAttribute('level', '');
-                this.cells[i].classList.add('anim-empty');
             }
 
             pillstreak.populateRandom();
@@ -47,6 +46,24 @@ window.pillstreak = (function() {
             for (prop in data) {
                 cell.setAttribute(prop, data[prop]);
             }
+        },
+        setCellAt: function(row, col, data) {
+            this.setCell(this.getCellAt(row, col), data);
+        },
+
+        getCellAt: function(row, col) {
+            return document.querySelector(".cell[col='"+col+"'][row='"+row+"']");
+        },
+
+        getRow: function(row) {
+            var cells = document.querySelectorAll(".cell[row='"+row+"']");
+            cells.forEach = Array.prototype.forEach;
+            return cells;
+        },
+        getColumn: function(col) {
+            var cells = document.querySelectorAll(".cell[col='"+col+"']");
+            cells.forEach = Array.prototype.forEach;
+            return cells;
         },
 
         populateRandom: function() {
@@ -84,21 +101,6 @@ window.pillstreak = (function() {
             } else {
                 return this.getCellAt(row, col);
             }
-        },
-
-        getCellAt: function(row, col) {
-            return document.querySelector(".cell[col='"+col+"'][row='"+row+"']");
-        },
-
-        getRow: function(row) {
-            var cells = document.querySelectorAll(".cell[row='"+row+"']");
-            cells.forEach = Array.prototype.forEach;
-            return cells;
-        },
-        getColumn: function(col) {
-            var cells = document.querySelectorAll(".cell[col='"+col+"']");
-            cells.forEach = Array.prototype.forEach;
-            return cells;
         },
 
         q: function(el, a, f) {
