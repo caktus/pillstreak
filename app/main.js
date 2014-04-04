@@ -10,6 +10,7 @@ window.pillstreak = (function() {
     var CONF = {
         ANIM_SPEED: 100,
         SHIFT_SPEED: 110,
+        TICK: 100,
         DEBUG_SHIFT: false,
     }
 
@@ -44,6 +45,25 @@ window.pillstreak = (function() {
             }).on('swipeup swipedown swipeleft swiperight', function(ev) {
                 pillstreak.shiftAllCells(ev.gesture.direction);
             });
+
+            setInterval(function() {
+                pillstreak.tick();
+            }, CONF.TICK);
+        },
+
+        tick: function() {
+            if (!this.lost) {
+                var inf = 0;
+                var virii = document.querySelectorAll('[type=infection]');
+                for (var i=0; i < virii.length; i++) {
+                    inf += parseInt(virii[i].getAttribute('level'), 10);
+                }
+                var thresh = 1.00 - (0.025 * inf);
+                if (Math.random() > thresh) {
+                    var cell = this.getOccupiedCell('infection');
+                    this.q(cell, 'grow');
+                }
+            }
         },
 
         addPoints: function(points) {
@@ -68,6 +88,19 @@ window.pillstreak = (function() {
             }
             if (free.length > 0) {
                 return free[ parseInt(free.length * Math.random(), 10) ];
+            }
+        },
+        getOccupiedCell: function(type) {
+            var cell = [];
+            for (var i=0; i<this.$$cells.length; i++) {
+                if (type && type === this.$$cells[i].getAttribute('type')) {
+                    cell.push(this.$$cells[i]);
+                } else if (!type && this.$$cells[i].getAttribute('type') !== 'free') {
+                    cell.push(this.$$cells[i]);
+                }
+            }
+            if (cell.length > 0) {
+                return cell[ parseInt(cell.length * Math.random(), 10) ];
             }
         },
         setCell: function(cell, data) {
