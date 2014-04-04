@@ -52,16 +52,28 @@ window.pillstreak = (function() {
         },
 
         tick: function() {
-            if (!this.lost) {
-                var inf = 0;
-                var virii = document.querySelectorAll('[type=infection]');
-                for (var i=0; i < virii.length; i++) {
-                    inf += parseInt(virii[i].getAttribute('level'), 10);
-                }
-                var thresh = 1.00 - (0.025 * inf);
-                if (Math.random() > thresh) {
-                    var cell = this.getOccupiedCell('infection');
-                    this.q(cell, 'grow');
+            var inf = 0;
+            var virii = document.querySelectorAll('[type=infection]');
+            for (var i=0; i < virii.length; i++) {
+                inf += parseInt(virii[i].getAttribute('level'), 10);
+            }
+            var thresh = 1.00 - (0.025 * inf);
+            if (Math.random() > thresh) {
+                var cell = this.getOccupiedCell('infection');
+                this.q(cell, 'grow');
+            }
+
+            if (this.lost) {
+                this.$game.classList.add('lost');
+
+                var pill = this.getOccupiedCell('pill');
+                if (pill) {
+                    this.setCell(pill, {type: 'infection'});
+                } else {
+                    var free = this.getFreeCell();
+                    if (free) {
+                        this.setCell(free, {type: 'infection', level: 1});
+                    }
                 }
             }
         },

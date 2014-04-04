@@ -69,6 +69,10 @@ h2.health img {
     text-shadow: 0px 0px 5px black;
     padding: 7px 0px;
 }
+#game.lost .cell:after {
+    opacity: 0;
+    -webkit-transition: opacity 1s;
+}
 
 .cell[level=''] {
     -webkit-transform: scale(0.01, 0.01);
