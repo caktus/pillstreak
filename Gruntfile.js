@@ -55,8 +55,11 @@ module.exports = function (grunt) {
         // Used to connect to a locally running web server (so Jasmine can test against a DOM)
         connect: {
             test: {
-                port: 8000
-            }
+                options: {
+                    port: 8000,
+                    hostname: '*',
+                },
+            },
         },
 
         jshint: {
@@ -164,7 +167,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['jshint', 'connect', 'watch']);
 
     // Unit Testing Task
-    grunt.registerTask('test', ['connect', 'watch']);
+    grunt.registerTask('test', ['connect:test', 'watch']);
 
     // Release Task
     grunt.registerTask('release', ['jshint', 'test', 'imagemin', 'htmlmin']);

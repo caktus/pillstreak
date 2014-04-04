@@ -36,6 +36,15 @@ window.pillstreak = (function() {
                     pillstreak.populateRandom();
                 }
             };
+
+            Hammer(document.body, {
+                swipe: true,
+                swipe_velocity: 0.2,
+            }).on('swipeup swipedown swipeleft swiperight', function(ev) {
+                if (pillstreak.shiftAllCells(ev.gesture.direction)) {
+                    pillstreak.populateRandom();
+                }
+            });
         },
         getFreeCell: function() {
             var free = [];
