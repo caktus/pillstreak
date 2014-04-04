@@ -32,7 +32,12 @@ window.pillstreak = (function() {
             this.$health = document.querySelector('#health_points');
             this.$info = document.querySelector('#info');
             this.$infoText = document.querySelector('#info-text');
+            this.$restart = document.querySelector('#restart');
+
             this.lost = false;
+            this.$restart.classList.add('hidden');
+            this.$points.innerHTML = '0';
+            this.$health.innerHTML = '10';
 
             var i, row, col;
             for (i=0; i<this.$$cells.length; i++) {
@@ -66,6 +71,13 @@ window.pillstreak = (function() {
             }, CONF.TICK);
 
             this.runInstructions();
+        },
+        restart: function() {
+            for (var i=0; i<this.$$cells.length; i++) {
+                this.setCell(this.$$cells[i], {type: 'free', level: ''});
+            }
+            this.$game.classList.remove('lost');
+            this.init();
         },
 
         info: function(text) {
@@ -105,6 +117,7 @@ window.pillstreak = (function() {
 
             if (this.lost) {
                 this.$game.classList.add('lost');
+                this.$restart.classList.remove('hidden');
 
                 var pill = this.getOccupiedCell('pill');
                 if (pill) {
