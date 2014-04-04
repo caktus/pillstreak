@@ -32,6 +32,7 @@ window.pillstreak = (function() {
             this.$game = document.querySelector('#game');
             this.$$cells = document.querySelectorAll(".cell");
             this.$points = document.querySelector('#points');
+            this.$high = document.querySelector('#high');
             this.$health = document.querySelector('#health_points');
             this.$info = document.querySelector('#info');
             this.$infoText = document.querySelector('#info-text');
@@ -147,6 +148,9 @@ window.pillstreak = (function() {
         addPoints: function(points) {
             var cur = parseInt(this.$points.innerHTML, 10);
             this.$points.innerHTML = cur + points;
+
+            var high = parseInt(this.$high.innerHTML, 10);
+            this.$high.innerHTML = Math.max(high, cur + points);
         },
         loseHealth: function() {
             var cur = parseInt(this.$health.innerHTML, 10);
