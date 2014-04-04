@@ -24,6 +24,10 @@ body{border:10px solid blue}body p{border:10px solid green}
     font-size: 80px;
 }
 
+.cell[level=''] {
+    -webkit-transform: scale(0.01, 0.01);
+}
+
 .cell.anim-empty {
     -webkit-transform: scale(0.01, 0.01);
     -webkit-transition: -webkit-transform 0.25s;

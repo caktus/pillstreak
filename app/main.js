@@ -78,7 +78,6 @@ window.pillstreak = (function() {
             if (cell) {
                 cell.setAttribute('type', Math.random()>0.5 ? 'pill' : 'infection');
                 cell.setAttribute('level', 1);
-                cell.classList.remove('anim-empty');
             }
         },
 
