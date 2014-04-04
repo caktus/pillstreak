@@ -11,6 +11,7 @@ window.pillstreak = (function() {
         ANIM_SPEED: 100,
         SHIFT_SPEED: 110,
         TICK: 100,
+        INFECTION_RATE: 0.4,
         DEBUG_SHIFT: false,
     }
 
@@ -32,7 +33,10 @@ window.pillstreak = (function() {
                 this.$$cells[i].setAttribute('level', '');
             }
 
-            pillstreak.populateRandom();
+            pillstreak.populateRandom('infection');
+            pillstreak.populateRandom('infection');
+            pillstreak.populateRandom('infection');
+            pillstreak.populateRandom('infection');
 
             this.$game.focus();
             document.body.onkeyup = function(ev) {
@@ -41,7 +45,7 @@ window.pillstreak = (function() {
 
             Hammer(document.body, {
                 swipe: true,
-                swipe_velocity: 0.2,
+                swipe_velocity: 0.1,
             }).on('swipeup swipedown swipeleft swiperight', function(ev) {
                 pillstreak.shiftAllCells(ev.gesture.direction);
             });
@@ -140,10 +144,11 @@ window.pillstreak = (function() {
             return cells;
         },
 
-        populateRandom: function() {
+        populateRandom: function(type) {
+            type = type || (Math.random() > CONF.INFECTION_RATE ? 'pill' : 'infection');
             var cell = this.getFreeCell();
             if (cell) {
-                cell.setAttribute('type', Math.random()>0.5 ? 'pill' : 'infection');
+                cell.setAttribute('type', type);
                 cell.setAttribute('level', 1);
             }
         },
