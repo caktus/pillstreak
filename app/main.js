@@ -306,13 +306,16 @@ window.pillstreak = (function() {
             });
         },
 
+        pendingShift: null,
         shiftAllCells: function(direction) {
             var neighbor;
             var grouper, groups;
             var shifted = false;
             if (this.shifting) {
+                this.pendingShift = direction;
                 return;
             }
+            this.pendingShift = null;
 
 
             this.shifting = true;
@@ -369,6 +372,9 @@ window.pillstreak = (function() {
                     pillstreak.populateRandom();
                 }
                 pillstreak.shifting = false;
+                if (pillstreak.pendingShift) {
+                    pillstreak.shiftAllCells(pillstreak.pendingShift);
+                }
             }
 
             var t = 0;
@@ -381,7 +387,7 @@ window.pillstreak = (function() {
                     t++;
                 })(i);
             }
-            setTimeout(populateIfShifted, CONF.SHIFT_SPEED * 8);
+            setTimeout(populateIfShifted, CONF.SHIFT_SPEED * 5);
         },
     };
     return exports;
