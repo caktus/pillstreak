@@ -88,10 +88,18 @@ window.pillstreak = (function() {
             this.init();
         },
 
-        info: function(text) {
+        info: function(text, t) {
             if (text) {
                 this.$infoText.innerHTML = text;
                 this.$info.classList.remove('hidden');
+
+                if (t) {
+                    setTimeout(function() {
+                        if (pillstreak.$infoText.innerHTML === text) {
+                            pillstreak.info();
+                        }
+                    }, t);
+                }
             } else {
                 this.$info.classList.add('hidden');
             }
@@ -372,7 +380,7 @@ window.pillstreak = (function() {
             function populateIfShifted() {
                 if (pillstreak.victories > 0) {
                     if (pillstreak.victories > 1) {
-                        pillstreak.info("BONUS x" + pillstreak.victories + "!");
+                        pillstreak.info("BONUS x" + pillstreak.victories + "!", 500);
                     }
                     pillstreak.addPoints(pillstreak.movePoints * pillstreak.victories);
                 }
