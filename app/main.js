@@ -11,8 +11,8 @@ window.pillstreak = (function() {
             this.game = document.querySelector('#game');
             this.cells = document.querySelectorAll(".cell");
 
-            var row, col;
-            for (var i=0; i<this.cells.length; i++) {
+            var i, row, col;
+            for (i=0; i<this.cells.length; i++) {
                 row = i % 4;
                 col = parseInt(i / 4, 10);
                 this.cells[i].setAttribute('type', 'free');
