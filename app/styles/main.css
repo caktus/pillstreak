@@ -14,6 +14,7 @@ body{border:10px solid blue}body p{border:10px solid green}
     left: 0px;
     -webkit-transition: all 0.25s;
     -webkit-transform: scale(1, 1);
+    opacity: 1;
 }
 .cell:after {
     content: attr(level);
@@ -21,7 +22,11 @@ body{border:10px solid blue}body p{border:10px solid green}
     height: 80px;
     position: absolute;
     font-family: sans-serif;
-    font-size: 80px;
+    font-size: 50px;
+    text-align: center;
+    color: white;
+    text-shadow: 0px 0px 5px black;
+    padding: 7px 0px;
 }
 
 .cell[level=''] {
@@ -48,6 +53,34 @@ body{border:10px solid blue}body p{border:10px solid green}
     -webkit-transform: translate(40px, 0px) scale(0.01, 1);
     -webkit-transition: -webkit-transform 0.25s;
 }
+
+.cell.anim-grow {
+    -webkit-transform: scale(1.25, 1.25);
+    -webkit-transition: -webkit-transform 0.25s;
+}
+
+.cell.anim-consume-up {
+    -webkit-transform: translate(0px, -80px) scale(1.25, 1.25);
+    -webkit-transition: -webkit-transform 0.25s;
+}
+.cell.anim-consume-down {
+    -webkit-transform: translate(0px, 80px) scale(1.25, 1.25);
+    -webkit-transition: -webkit-transform 0.25s;
+}
+.cell.anim-consume-left {
+    -webkit-transform: translate(-80px, 0px) scale(1.25, 1.25);
+    -webkit-transition: -webkit-transform 0.25s;
+}
+.cell.anim-consume-right {
+    -webkit-transform: translate(80px, 0px) scale(1.25, 1.25);
+    -webkit-transition: -webkit-transform 0.25s;
+}
+
+.cell.anim-grow {
+    -webkit-transform: scale(1.25, 1.25);
+    -webkit-transition: -webkit-transform 0.25s;
+}
+
 .cell.anim-highlight {
     background-color: green !important;
     -webkit-transform: scale(1.25, 1.25);
@@ -55,11 +88,18 @@ body{border:10px solid blue}body p{border:10px solid green}
 }
 
 .cell[type=pill] {
-    background: yellow;
+    background-image: url(../../assets/pill.png);
+    background-repeat: no-repeat;
+    background-position-x: 25px;
 }
 
 .cell[type=infection] {
-    background: red;
+    background-image: url(../../assets/virus.png);
+    background-repeat: no-repeat;
+    background-position-x: 5px;
+}
+.cell[type=infection]:after {
+    padding: 7px 5px;
 }
 
 .cell[row='1'] {

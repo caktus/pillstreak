@@ -118,13 +118,20 @@ window.pillstreak = (function() {
             }
         },
 
-        q: function(el, a, f) {
-            a = 'anim-' + a;
-            el.classList.add(a);
+        q: function(el, a, f, t) {
+            var classes = a.split(' ');
+            for (var i=0; i < classes.length; i++) {
+                classes[i] = 'anim-' + classes[i];
+                el.classList.add(classes[i]);
+            }
             setTimeout(function() {
-                el.classList.remove(a);
-                f();
-            }, CONF.ANIM_SPEED);
+                if (f) {
+                    f();
+                }
+                for (var i=0; i < classes.length; i++) {
+                    el.classList.remove(classes[i]);
+                }
+            }, t || CONF.ANIM_SPEED);
         },
 
         moveCell: function(cell, other) {
@@ -147,6 +154,7 @@ window.pillstreak = (function() {
                 cell.setAttribute('type', 'free');
                 cell.setAttribute('level', '');
             });
+            this.q(other, 'grow');
         },
 
         fightCells: function(cell, other, direction) {
@@ -160,10 +168,10 @@ window.pillstreak = (function() {
                 this.mergeCells(cell, other, direction);
             }
 
-            this.q(cell, 'empty', function() {
+            this.q(cell, 'consume-'+direction, function() {
                 cell.setAttribute('type', 'free');
                 cell.setAttribute('level', '');
-            });
+            }, 250);
         },
 
         shiftAllCells: function(direction) {
