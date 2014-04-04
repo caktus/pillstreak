@@ -14,6 +14,7 @@ body{border:10px solid blue}body p{border:10px solid green}
     left: 0px;
     -webkit-transition: all 0.25s;
     -webkit-transform: scale(1, 1);
+    background-repeat: no-repeat;
     opacity: 1;
 }
 .cell:after {
@@ -89,13 +90,11 @@ body{border:10px solid blue}body p{border:10px solid green}
 
 .cell[type=pill] {
     background-image: url(../../assets/pill.png);
-    background-repeat: no-repeat;
     background-position-x: 25px;
 }
 
 .cell[type=infection] {
     background-image: url(../../assets/virus.png);
-    background-repeat: no-repeat;
     background-position-x: 5px;
 }
 .cell[type=infection]:after {

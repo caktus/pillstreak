@@ -171,7 +171,7 @@ window.pillstreak = (function() {
             this.q(cell, 'consume-'+direction, function() {
                 cell.setAttribute('type', 'free');
                 cell.setAttribute('level', '');
-            }, 250);
+            });
         },
 
         shiftAllCells: function(direction) {
