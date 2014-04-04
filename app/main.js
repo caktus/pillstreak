@@ -25,8 +25,9 @@ window.pillstreak = (function() {
 
             this.game.focus();
             document.body.onkeyup = function(ev) {
-                pillstreak.shiftAllCells(KEYS[ev.keyCode]);
-                pillstreak.populateRandom();
+                if (pillstreak.shiftAllCells(KEYS[ev.keyCode])) {
+                    pillstreak.populateRandom();
+                }
             };
         },
         getFreeCell: function() {
@@ -112,6 +113,7 @@ window.pillstreak = (function() {
         shiftAllCells: function(direction) {
             var neighbor;
             var grouper, groups;
+            var shifted = false;
             switch (direction) {
                 case 'up':
                 case 'down':
@@ -144,6 +146,7 @@ window.pillstreak = (function() {
                     if (neighbor) {
                         if (neighbor.getAttribute('type') === 'free') {
                             pillstreak.swapCells(cell, neighbor);
+                            shifted = true;
                         }
                     }
                 }
@@ -153,6 +156,8 @@ window.pillstreak = (function() {
                 var i = groups.pop();
                 grouper(i).forEach(shiftGroup);
             }
+
+            return shifted;
         },
     };
     return exports;
