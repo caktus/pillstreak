@@ -30,6 +30,9 @@ body.anim-pulse {
     border: 1px solid darkgrey;
     color: white;
     padding: 10px;
+    position: relative;
+    top: 210px;
+    z-index: 100;
 }
 
 h1 {
