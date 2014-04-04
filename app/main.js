@@ -69,6 +69,10 @@ window.pillstreak = (function() {
                 pillstreak.shiftAllCells(ev.gesture.direction);
             });
 
+            document.body.ontouchstart = function(ev) {
+                ev.preventDefault();
+            };
+
             setInterval(function() {
                 pillstreak.tick();
             }, CONF.TICK);
