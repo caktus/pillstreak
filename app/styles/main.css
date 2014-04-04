@@ -44,6 +44,11 @@ body{border:10px solid blue}body p{border:10px solid green}
     -webkit-transform: translate(40px, 0px) scale(0.01, 1);
     -webkit-transition: -webkit-transform 0.25s;
 }
+.cell.anim-highlight {
+    background-color: green !important;
+    -webkit-transform: scale(1.25, 1.25);
+    -webkit-transition: -webkit-transform 0.25s, background-color 0.35s;
+}
 
 .cell[type=pill] {
     background: yellow;

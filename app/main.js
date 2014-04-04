@@ -6,6 +6,13 @@ window.pillstreak = (function() {
         39: 'right',
         40: 'down',
     };
+
+    var CONF = {
+        ANIM_SPEED: 100,
+        SHIFT_SPEED: 110,
+        DEBUG_SHIFT: false,
+    }
+
     var exports = {
         init: function() {
             this.game = document.querySelector('#game');
@@ -109,7 +116,7 @@ window.pillstreak = (function() {
             setTimeout(function() {
                 el.classList.remove(a);
                 f();
-            }, 250);
+            }, CONF.ANIM_SPEED);
         },
 
         swapCells: function(cell, other) {
@@ -182,6 +189,10 @@ window.pillstreak = (function() {
             }
             
             function shiftGroup(cell) {
+                if (CONF.DEBUG_SHIFT) {
+                    console.log('shift', cell);
+                    pillstreak.q(cell, 'highlight', function(){});
+                }
                 if (cell.getAttribute('type') !== 'free') {
                     neighbor = pillstreak.getNeighbor(cell, direction);
                     if (neighbor) {
@@ -199,12 +210,23 @@ window.pillstreak = (function() {
                 }
             }
 
-            while (groups.length > 0) {
-                var i = groups.pop();
-                grouper(i).forEach(shiftGroup);
+            function populateIfShifted() {
+                if (shifted) {
+                    pillstreak.populateRandom();
+                }
             }
 
-            return shifted;
+            var t = 0;
+            while (groups.length > 0) {
+                var i = groups.pop();
+                (function(i) {
+                    setTimeout(function(){
+                        grouper(i).forEach(shiftGroup);
+                    }, CONF.SHIFT_SPEED * t);
+                    t++;
+                })(i);
+            }
+            setTimeout(populateIfShifted, CONF.SHIFT_SPEED * t);
         },
     };
     return exports;
