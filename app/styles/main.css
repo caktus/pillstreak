@@ -6,19 +6,20 @@ body {
     background-repeat: no-repeat;
     background-color: black;
     color: white;
-    position: relative;
     margin: 0px;
 }
 
 h1 {
-    margin-left: 10px;
+    position: absolute;
+    top: 0px;
+    left: 10px;
 }
 
 h2.score {
     width: 40%;
     position: absolute;
     text-align: right;
-    top: -15px;
+    top: 5px;
     right: 0px;
     margin: 0px;
 }
@@ -30,7 +31,7 @@ h2.health {
     text-align: right;
     position: absolute;
     right: 0px;
-    top: 25px;
+    top: 40px;
     margin: 0px;
 }
 h2.health img {
@@ -40,11 +41,9 @@ h2.health img {
 #game {
     width: 320px;
     height: 320px;
-    position: relative;
-    
-    top: 50px;
-    left: 30px;
     background-color: rgba(0, 0, 0, 0.1);
+    margin: 100px auto;
+    position: relative;
 }
 
 .cell {
