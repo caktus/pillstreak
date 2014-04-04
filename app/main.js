@@ -34,18 +34,14 @@ window.pillstreak = (function() {
 
             this.$game.focus();
             document.body.onkeyup = function(ev) {
-                if (pillstreak.shiftAllCells(KEYS[ev.keyCode])) {
-                    pillstreak.populateRandom();
-                }
+                pillstreak.shiftAllCells(KEYS[ev.keyCode])
             };
 
             Hammer(document.body, {
                 swipe: true,
                 swipe_velocity: 0.2,
             }).on('swipeup swipedown swipeleft swiperight', function(ev) {
-                if (pillstreak.shiftAllCells(ev.gesture.direction)) {
-                    pillstreak.populateRandom();
-                }
+                pillstreak.shiftAllCells(ev.gesture.direction);
             });
         },
 
