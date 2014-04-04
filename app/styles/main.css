@@ -1,22 +1,50 @@
 body {
     font-family: sans-serif;
+    background-image: url(../../assets/background.png);
+    background-size: 100%;
+    background-position-y: 80px;
+    background-repeat: no-repeat;
+    background-color: black;
+    color: white;
+    position: relative;
+    margin: 0px;
+}
+
+h1 {
+    margin-left: 10px;
 }
 
 h2.score {
     width: 40%;
-    display: inline-block;
+    position: absolute;
+    text-align: right;
+    top: -15px;
+    right: 0px;
+    margin: 0px;
+}
+h2.score img {
+    margin: 0px 16px;
 }
 h2.health {
     width: 40%;
-    float: right;
-    display: inline-block;
     text-align: right;
+    position: absolute;
+    right: 0px;
+    top: 25px;
+    margin: 0px;
+}
+h2.health img {
+    margin: 0px 10px;
 }
 
 #game {
     width: 320px;
     height: 320px;
     position: relative;
+    
+    top: 50px;
+    left: 30px;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .cell {
@@ -25,7 +53,7 @@ h2.health {
     position: absolute;
     top: 0px;
     left: 0px;
-    -webkit-transition: all 0.25s;
+    -webkit-transition: all 0.15s;
     -webkit-transform: scale(1, 1);
     background-repeat: no-repeat;
     opacity: 1;
@@ -48,56 +76,56 @@ h2.health {
 
 .cell.anim-empty {
     -webkit-transform: scale(0.01, 0.01);
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: -webkit-transform 0.15s;
 }
 .cell.anim-merge-up {
     -webkit-transform: translate(0px, -40px) scale(1, 0.01);
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: -webkit-transform 0.15s;
 }
 .cell.anim-merge-down {
     -webkit-transform: translate(0px, 40px) scale(1, 0.01);
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: -webkit-transform 0.15s;
 }
 .cell.anim-merge-left {
     -webkit-transform: translate(-40px, 0px) scale(0.01, 1);
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: -webkit-transform 0.15s;
 }
 .cell.anim-merge-right {
     -webkit-transform: translate(40px, 0px) scale(0.01, 1);
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: -webkit-transform 0.15s;
 }
 
 .cell.anim-grow {
     -webkit-transform: scale(1.25, 1.25);
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: -webkit-transform 0.15s;
 }
 
 .cell.anim-consume-up {
     -webkit-transform: translate(0px, -80px) scale(1.25, 1.25);
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: -webkit-transform 0.15s;
 }
 .cell.anim-consume-down {
     -webkit-transform: translate(0px, 80px) scale(1.25, 1.25);
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: -webkit-transform 0.15s;
 }
 .cell.anim-consume-left {
     -webkit-transform: translate(-80px, 0px) scale(1.25, 1.25);
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: -webkit-transform 0.15s;
 }
 .cell.anim-consume-right {
     -webkit-transform: translate(80px, 0px) scale(1.25, 1.25);
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: -webkit-transform 0.15s;
 }
 
 .cell.anim-grow {
     -webkit-transform: scale(1.25, 1.25);
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: -webkit-transform 0.15s;
 }
 
 .cell.anim-highlight {
     background-color: green !important;
     -webkit-transform: scale(1.25, 1.25);
-    -webkit-transition: -webkit-transform 0.25s, background-color 0.35s;
+    -webkit-transition: -webkit-transform 0.15s, background-color 0.35s;
 }
 
 .cell[type=pill] {

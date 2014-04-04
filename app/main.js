@@ -19,6 +19,7 @@ window.pillstreak = (function() {
             this.$$cells = document.querySelectorAll(".cell");
             this.$points = document.querySelector('#points');
             this.$health = document.querySelector('#health_points');
+            this.lost = false;
 
             var i, row, col;
             for (i=0; i<this.$$cells.length; i++) {
