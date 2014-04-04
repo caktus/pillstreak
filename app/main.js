@@ -15,22 +15,24 @@ window.pillstreak = (function() {
 
     var exports = {
         init: function() {
-            this.game = document.querySelector('#game');
-            this.cells = document.querySelectorAll(".cell");
+            this.$game = document.querySelector('#game');
+            this.$$cells = document.querySelectorAll(".cell");
+            this.$points = document.querySelector('#points');
+            this.$health = document.querySelector('#health_points');
 
             var i, row, col;
-            for (i=0; i<this.cells.length; i++) {
+            for (i=0; i<this.$$cells.length; i++) {
                 row = i % 4;
                 col = parseInt(i / 4, 10);
-                this.cells[i].setAttribute('type', 'free');
-                this.cells[i].setAttribute('row', row);
-                this.cells[i].setAttribute('col', col);
-                this.cells[i].setAttribute('level', '');
+                this.$$cells[i].setAttribute('type', 'free');
+                this.$$cells[i].setAttribute('row', row);
+                this.$$cells[i].setAttribute('col', col);
+                this.$$cells[i].setAttribute('level', '');
             }
 
             pillstreak.populateRandom();
 
-            this.game.focus();
+            this.$game.focus();
             document.body.onkeyup = function(ev) {
                 if (pillstreak.shiftAllCells(KEYS[ev.keyCode])) {
                     pillstreak.populateRandom();
@@ -46,11 +48,25 @@ window.pillstreak = (function() {
                 }
             });
         },
+
+        addPoints: function(points) {
+            var cur = parseInt(this.$points.innerHTML, 10);
+            this.$points.innerHTML = cur + points;
+        },
+        loseHealth: function() {
+            var cur = parseInt(this.$health.innerHTML, 10);
+            this.$health.innerHTML = cur - 1;
+            if (cur - 1 === 0) {
+                // lost the game!
+                this.lost = true;
+            }
+        },
+
         getFreeCell: function() {
             var free = [];
-            for (var i=0; i<this.cells.length; i++) {
-                if (this.cells[i].getAttribute('type') === 'free') {
-                    free.push(this.cells[i]);
+            for (var i=0; i<this.$$cells.length; i++) {
+                if (this.$$cells[i].getAttribute('type') === 'free') {
+                    free.push(this.$$cells[i]);
                 }
             }
             if (free.length > 0) {
@@ -164,8 +180,10 @@ window.pillstreak = (function() {
             if (pill >= infection) {
                 other.setAttribute('type', 'free');
                 other.setAttribute('level', '');
+                this.addPoints(100 * infection);
             } else {
                 this.mergeCells(cell, other, direction);
+                this.loseHealth();
             }
 
             this.q(cell, 'consume-'+direction, function() {
