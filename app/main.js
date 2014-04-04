@@ -377,7 +377,7 @@ window.pillstreak = (function() {
                     t++;
                 })(i);
             }
-            setTimeout(populateIfShifted, CONF.SHIFT_SPEED * t);
+            setTimeout(populateIfShifted, CONF.SHIFT_SPEED * 8);
         },
     };
     return exports;
