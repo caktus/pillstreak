@@ -15,12 +15,23 @@ window.pillstreak = (function() {
         DEBUG_SHIFT: false,
     }
 
+    var INSTRUCTIONS = [
+        "You are not well.",
+        "But, you are not powerless!",
+        "Combine pills to form Good Habits.",
+        "Avoid letting the infection spread.",
+        "The stronger the infection...",
+        "the better you'll have to be with your pills."
+    ];
+
     var exports = {
         init: function() {
             this.$game = document.querySelector('#game');
             this.$$cells = document.querySelectorAll(".cell");
             this.$points = document.querySelector('#points');
             this.$health = document.querySelector('#health_points');
+            this.$info = document.querySelector('#info');
+            this.$infoText = document.querySelector('#info-text');
             this.lost = false;
 
             var i, row, col;
@@ -53,6 +64,31 @@ window.pillstreak = (function() {
             setInterval(function() {
                 pillstreak.tick();
             }, CONF.TICK);
+
+            this.runInstructions();
+        },
+
+        info: function(text) {
+            if (text) {
+                this.$infoText.innerHTML = text;
+                this.$info.classList.remove('hidden');
+            } else {
+                this.$info.classList.add('hidden');
+            }
+        },
+        runInstructions: function() {
+            this.instructionStep = 0;
+
+            var i = setInterval(function() {
+                var step = INSTRUCTIONS[pillstreak.instructionStep];
+                if (step) {
+                    pillstreak.info(step);
+                    pillstreak.instructionStep++;
+                } else {
+                    pillstreak.info();
+                    clearInterval(i);
+                }
+            }, 2000);
         },
 
         tick: function() {
@@ -92,6 +128,7 @@ window.pillstreak = (function() {
             if (cur - 1 === 0) {
                 // lost the game!
                 this.lost = true;
+                this.info("The infection has won...");
             }
         },
 

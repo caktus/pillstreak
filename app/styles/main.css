@@ -46,6 +46,27 @@ h2.health img {
     position: relative;
 }
 
+#info {
+    width: 320px;
+    height: 120px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: -80px auto;
+    position: relative;
+    -webkit-transition: all 1s;
+
+    font-size: 30px;
+}
+#info-text {
+    width: 320px;
+    height: 120px;
+    padding: 20px;
+}
+#info.hidden {
+    -webkit-transform: scale(0.01, 0.01);
+    opacity: 0;
+    -webkit-transition: all 1s;
+}
+
 .cell {
     width: 80px;
     height: 80px;
