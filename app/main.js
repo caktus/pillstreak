@@ -21,10 +21,10 @@ window.pillstreak = (function() {
         "Combine pills to form Good Habits.",
         "Avoid letting the infection spread.",
         "The stronger the infection...",
-        "the better you'll have to be with your pills."
-        "Swipe or use arrow keys to move."
-        "Swipe or use arrow keys to move."
-        "Swipe or use arrow keys to move."
+        "the better you'll have to be with your pills.",
+        "Swipe or use arrow keys to move.",
+        "Swipe or use arrow keys to move.",
+        "Swipe or use arrow keys to move.",
     ];
 
     var exports = {
