@@ -118,7 +118,7 @@ window.pillstreak = (function() {
             }, CONF.ANIM_SPEED);
         },
 
-        swapCells: function(cell, other) {
+        moveCell: function(cell, other) {
             var first_row = cell.getAttribute('row');
             var first_col = cell.getAttribute('col');
 
@@ -196,7 +196,7 @@ window.pillstreak = (function() {
                     neighbor = pillstreak.getNeighbor(cell, direction);
                     if (neighbor) {
                         if (neighbor.getAttribute('type') === 'free') {
-                            pillstreak.swapCells(cell, neighbor);
+                            pillstreak.moveCell(cell, neighbor);
                             shifted = true;
                         } else if (neighbor.getAttribute('type') === cell.getAttribute('type')) {
                             pillstreak.mergeCells(cell, neighbor, direction);

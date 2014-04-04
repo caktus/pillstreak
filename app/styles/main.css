@@ -12,7 +12,7 @@ body{border:10px solid blue}body p{border:10px solid green}
     position: absolute;
     top: 0px;
     left: 0px;
-    -webkit-transition: -webkit-transform 0.25s;
+    -webkit-transition: all 0.25s;
     -webkit-transform: scale(1, 1);
 }
 .cell:after {
