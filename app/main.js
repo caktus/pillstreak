@@ -192,6 +192,12 @@ window.pillstreak = (function() {
             var neighbor;
             var grouper, groups;
             var shifted = false;
+            if (this.shifting) {
+                return;
+            }
+
+
+            this.shifting = true;
             switch (direction) {
                 case 'up':
                 case 'down':
@@ -244,6 +250,7 @@ window.pillstreak = (function() {
                 if (shifted) {
                     pillstreak.populateRandom();
                 }
+                pillstreak.shifting = false;
             }
 
             var t = 0;
