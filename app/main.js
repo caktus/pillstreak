@@ -19,6 +19,7 @@ window.pillstreak = (function() {
                 this.cells[i].setAttribute('row', row);
                 this.cells[i].setAttribute('col', col);
                 this.cells[i].setAttribute('level', '');
+                this.cells[i].classList.add('anim-empty');
             }
 
             pillstreak.populateRandom();
@@ -53,6 +54,7 @@ window.pillstreak = (function() {
             if (cell) {
                 cell.setAttribute('type', Math.random()>0.5 ? 'pill' : 'infection');
                 cell.setAttribute('level', 1);
+                cell.classList.remove('anim-empty');
             }
         },
 
@@ -99,6 +101,15 @@ window.pillstreak = (function() {
             return cells;
         },
 
+        q: function(el, a, f) {
+            a = 'anim-' + a;
+            el.classList.add(a);
+            setTimeout(function() {
+                el.classList.remove(a);
+                f();
+            }, 250);
+        },
+
         swapCells: function(cell, other) {
             var first_row = cell.getAttribute('row');
             var first_col = cell.getAttribute('col');
@@ -110,13 +121,32 @@ window.pillstreak = (function() {
             other.setAttribute('col', first_col);
         },
 
-        mergeCells: function(cell, other) {
+        mergeCells: function(cell, other, direction) {
             var level = parseInt(other.getAttribute('level'), 10);
             level += parseInt(cell.getAttribute('level'), 10);
             other.setAttribute('level', level);
 
-            cell.setAttribute('type', 'free');
-            cell.setAttribute('level', '');
+            this.q(cell, 'merge-' + direction, function() {
+                cell.setAttribute('type', 'free');
+                cell.setAttribute('level', '');
+            });
+        },
+
+        fightCells: function(cell, other, direction) {
+            var pill = parseInt(cell.getAttribute('level'), 10);
+            var infection = parseInt(other.getAttribute('level'), 10);
+
+            if (pill >= infection) {
+                other.setAttribute('type', 'free');
+                other.setAttribute('level', '');
+            } else {
+                this.mergeCells(cell, other, direction);
+            }
+
+            this.q(cell, 'empty', function() {
+                cell.setAttribute('type', 'free');
+                cell.setAttribute('level', '');
+            });
         },
 
         shiftAllCells: function(direction) {
@@ -156,9 +186,11 @@ window.pillstreak = (function() {
                         if (neighbor.getAttribute('type') === 'free') {
                             pillstreak.swapCells(cell, neighbor);
                             shifted = true;
-                        }
-                        if (neighbor.getAttribute('type') === cell.getAttribute('type')) {
-                            pillstreak.mergeCells(cell, neighbor);
+                        } else if (neighbor.getAttribute('type') === cell.getAttribute('type')) {
+                            pillstreak.mergeCells(cell, neighbor, direction);
+                            shifted = true;
+                        } else if (cell.getAttribute('type') === 'pill') {
+                            pillstreak.fightCells(cell, neighbor, direction);
                             shifted = true;
                         }
                     }

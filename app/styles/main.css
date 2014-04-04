@@ -24,8 +24,25 @@ body{border:10px solid blue}body p{border:10px solid green}
     font-size: 80px;
 }
 
-.cell[level=''] {
+.cell.anim-empty {
     -webkit-transform: scale(0.01, 0.01);
+    -webkit-transition: -webkit-transform 0.25s;
+}
+.cell.anim-merge-up {
+    -webkit-transform: translate(0px, -40px) scale(1, 0.01);
+    -webkit-transition: -webkit-transform 0.25s;
+}
+.cell.anim-merge-down {
+    -webkit-transform: translate(0px, 40px) scale(1, 0.01);
+    -webkit-transition: -webkit-transform 0.25s;
+}
+.cell.anim-merge-left {
+    -webkit-transform: translate(-40px, 0px) scale(0.01, 1);
+    -webkit-transition: -webkit-transform 0.25s;
+}
+.cell.anim-merge-right {
+    -webkit-transform: translate(40px, 0px) scale(0.01, 1);
+    -webkit-transition: -webkit-transform 0.25s;
 }
 
 .cell[type=pill] {
