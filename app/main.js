@@ -110,7 +110,9 @@ window.pillstreak = (function() {
             }, 2000);
         },
 
+        ticks: 0,
         tick: function() {
+            this.ticks++;
             var inf = 0;
             var virii = document.querySelectorAll('[type=infection]');
             for (var i=0; i < virii.length; i++) {
@@ -120,6 +122,10 @@ window.pillstreak = (function() {
             if (Math.random() > thresh) {
                 var cell = this.getOccupiedCell('infection');
                 this.q(cell, 'grow');
+            }
+
+            if (this.ticks % 10 === 0) {
+                this.q(document.body, 'pulse');
             }
 
             if (this.lost) {

@@ -10,6 +10,11 @@ body {
 
     overflow-y: hidden;
 }
+body.anim-pulse {
+    background-size: 110%;
+    background-position-x: -20px;
+    -webkit-transition: all 2s;
+}
 
 #restart-container {
     width: 320px;
