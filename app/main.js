@@ -110,6 +110,15 @@ window.pillstreak = (function() {
             other.setAttribute('col', first_col);
         },
 
+        mergeCells: function(cell, other) {
+            var level = parseInt(other.getAttribute('level'), 10);
+            level += parseInt(cell.getAttribute('level'), 10);
+            other.setAttribute('level', level);
+
+            cell.setAttribute('type', 'free');
+            cell.setAttribute('level', '');
+        },
+
         shiftAllCells: function(direction) {
             var neighbor;
             var grouper, groups;
@@ -146,6 +155,10 @@ window.pillstreak = (function() {
                     if (neighbor) {
                         if (neighbor.getAttribute('type') === 'free') {
                             pillstreak.swapCells(cell, neighbor);
+                            shifted = true;
+                        }
+                        if (neighbor.getAttribute('type') === cell.getAttribute('type')) {
+                            pillstreak.mergeCells(cell, neighbor);
                             shifted = true;
                         }
                     }
