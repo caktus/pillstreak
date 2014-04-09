@@ -130,7 +130,7 @@ h2.health img {
     text-shadow: 0px 0px 5px black;
     padding: 7px 0px;
 }
-#game.lost .cell:after {
+#game.lost .cell:after,#game.won .cell:after {
     opacity: 0;
     -webkit-transition: opacity 1s;
     -webkit-transition: -webkit-transform 0.15s;

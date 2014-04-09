@@ -39,6 +39,7 @@ window.pillstreak = (function() {
             this.$restart = document.querySelector('#restart');
 
             this.lost = false;
+            this.won = false;
             this.$restart.classList.add('hidden');
             this.$points.innerHTML = '0';
             this.$health.innerHTML = '10';
@@ -86,6 +87,7 @@ window.pillstreak = (function() {
                 this.setCell(this.$$cells[i], {type: 'free', level: ''});
             }
             this.$game.classList.remove('lost');
+            this.$game.classList.remove('won');
             this.init();
         },
 
@@ -150,6 +152,16 @@ window.pillstreak = (function() {
                     if (free) {
                         this.setCell(free, {type: 'infection', level: 1});
                     }
+                }
+            }
+            if (this.won) {
+                this.$game.classList.add('won');
+                this.$restart.classList.remove('hidden');
+
+                var pill = this.getOccupiedCell('pill');
+                var free = this.getFreeCell();
+                if (free) {
+                    this.setCell(free, {type: 'pill', level: 1});
                 }
             }
         },
@@ -285,7 +297,7 @@ window.pillstreak = (function() {
 
             var clevel = cell.getAttribute('level');
             var olevel = parseInt(clevel / 2);
-            if (cell.getAttribute('type') === 'infection' && clevel >= 5) {
+            if (cell.getAttribute('type') === 'infection' && clevel > 5) {
                 other.setAttribute('type', 'infection');
                 other.setAttribute('level', olevel);
                 cell.setAttribute('level', clevel - olevel);
@@ -295,6 +307,10 @@ window.pillstreak = (function() {
         mergeCells: function(cell, other, direction) {
             var level = parseInt(other.getAttribute('level'), 10);
             level += parseInt(cell.getAttribute('level'), 10);
+            if (level > 5) {
+                return false;
+            }
+
             other.setAttribute('level', level);
 
             this.q(cell, 'merge-' + direction, function() {
@@ -376,8 +392,7 @@ window.pillstreak = (function() {
                             pillstreak.moveCell(cell, neighbor);
                             shifted = true;
                         } else if (neighbor.getAttribute('type') === cell.getAttribute('type')) {
-                            pillstreak.mergeCells(cell, neighbor, direction);
-                            shifted = true;
+                            shifted = pillstreak.mergeCells(cell, neighbor, direction);
                         } else if (cell.getAttribute('type') === 'pill') {
                             pillstreak.fightCells(cell, neighbor, direction);
                             shifted = true;
@@ -395,7 +410,12 @@ window.pillstreak = (function() {
                 }
 
                 if (shifted) {
-                    pillstreak.populateRandom();
+                    if (document.querySelectorAll('[type=infection]').length > 0) {
+                        pillstreak.populateRandom();
+                    } else {
+                        pillstreak.won = true;
+                        pillstreak.info("You're cured!");
+                    }
                 }
                 pillstreak.shifting = false;
                 if (pillstreak.pendingShift) {
