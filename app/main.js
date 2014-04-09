@@ -11,7 +11,7 @@ window.pillstreak = (function() {
         ANIM_SPEED: 100,
         SHIFT_SPEED: 110,
         TICK: 100,
-        INFECTION_RATE: 0.4,
+        INFECTION_RATE: 0.5,
         DEBUG_SHIFT: false,
     }
 
@@ -56,7 +56,8 @@ window.pillstreak = (function() {
             pillstreak.populateRandom('infection');
             pillstreak.populateRandom('infection');
             pillstreak.populateRandom('infection');
-            pillstreak.populateRandom('infection');
+
+            pillstreak.populateRandom('pill');
 
             this.$game.focus();
             document.body.onkeyup = function(ev) {
@@ -281,6 +282,14 @@ window.pillstreak = (function() {
 
             other.setAttribute('row', first_row);
             other.setAttribute('col', first_col);
+
+            var clevel = cell.getAttribute('level');
+            var olevel = parseInt(clevel / 2);
+            if (cell.getAttribute('type') === 'infection' && clevel >= 5) {
+                other.setAttribute('type', 'infection');
+                other.setAttribute('level', olevel);
+                cell.setAttribute('level', clevel - olevel);
+            }
         },
 
         mergeCells: function(cell, other, direction) {
@@ -395,7 +404,7 @@ window.pillstreak = (function() {
             }
 
             var t = 0;
-            while (groups.length > 0) {
+            while (groups && groups.length > 0) {
                 var i = groups.pop();
                 (function(i) {
                     setTimeout(function(){
